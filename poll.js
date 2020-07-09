@@ -1,4 +1,4 @@
-var apiKey = "fZYwg4ZBLCTz2foj9DsfTO0cppIhM0el";
+var apiKey = "";
 
 var testapi = function () {
     console.log("testing api call");
