@@ -1,16 +1,27 @@
+//api key, remove before pushing to GH
 var apiKey = "LOL, NO";
 
+//Elements on my test page I will be accessing
 var infoBtnEl = document.querySelector("#poll-info");
 var credBtnEl = document.querySelector("#credit-info");
 var btnConEl = document.querySelector("#button-container");
+var getChartEl = document.querySelector("#get-chart");
+var getResEl = document.querySelector("#get-results");
+var chartConEl = document.querySelector("#chart-container");
+var creditsEl = document.querySelector("#credits");
 
+//The main poll object, consisting of the poll ID, poll title, poll status (OPEN/CLOSED), an array of choices, and the URL for the associated chart
 var pollId = {
     id: "",
     title: "",
     poll_status: "",
+    chartUrl: "",
     choices: []
 }
 
+//function calls the api and displays the number of credits available for the subscription this month.
+//this is for monitoring the number of remaining calls we can make this month. Most actions cost 10 credits.
+//**NOTE - THIS CALL COSTS 0 CREDITS */
 var creditCheck = function () {
     //console.log("testing api call");
     fetch("https://api.open-agora.com/info?api_token="+apiKey, {
@@ -21,7 +32,8 @@ var creditCheck = function () {
 }).then(function(response) {
     if(response.ok) {
         response.json().then(function(data) {
-            console.log(data);
+            //console.log(data);
+            creditsEl.textContent = data.subscription.credits + " Credits Left";
         });
     }
 });
@@ -30,7 +42,10 @@ var creditCheck = function () {
 //request account infomration from api
 //testapi();
 
-//get information about the poll
+//get information about the poll. This will return info like the poll ID, title, status, the poll choices and the choice IDs, numbers, and labels.
+//This function can be expanded on to save the returned data to the pollId object and save that to localStorage so future actions do not need to make api calls to get
+//this information.
+//**NOTE - THIS CALL ONLY COSTS 1 CREDIT**
 var getPollInfo = function () {
     fetch("https://api.open-agora.com/polls/Pyn0FYhq8H?api_token=" + apiKey).then(function(response) {
         if(response.ok) {
@@ -41,6 +56,8 @@ var getPollInfo = function () {
     });
 }
 
+//The voting function, currently clicking on one of the vote buttons will add a vote to the appropriate result. The api is called to log the vote for the voter's choice
+//**NOTE - THIS CALL COSTS 10 CREDITS **
 var vote = function (event) {
     //console.log(event.target);
     var buttonId = event.target.textContent;
@@ -51,40 +68,8 @@ var vote = function (event) {
     //console.log(userVote[1]);
     var buttonNum = parseInt(buttonId[1]);
 
-    /*switch (voteChoice) {
-        case 1:
-            console.log("Switch: vote 1");
-            break;
-        case 2:
-            console.log("Switch: vote 2");
-            break;
-        case 3:
-            console.log("Switch: vote 3");
-            break;
-        case 4:
-            console.log("Switch: vote 4");
-            break;
-        case 5:
-            console.log("Switch: vote 5");
-            break;
-        case 6:
-            console.log("Switch: vote 6");
-            break;
-        case 7:
-            console.log("Switch: vote 7");
-            break;
-        case 8:
-            console.log("Switch: vote 8");
-            break;
-        case 9:
-            console.log("Switch: vote 9");
-            break;
-        case 10:
-            console.log("Switch: vote 10");
-            break;
-
-    }*/
-
+    //Loop through the array of choices in pollId and find the one with the num attribute that matches the button pressed.
+    //Then it copies the ID for that choice into voteChoiceId which will be used to form the api call below.
     for (var i=0; i<pollId.choices.length; i++) {
         //console.log("Poll Choice :" + pollId.choices[i].num + " ID: " + pollId.choices[i].id);
         //console.log(typeof(voteChoice));
@@ -125,15 +110,19 @@ var vote = function (event) {
     
 }
 
+//This function saves the current pollId object to localStorage. Saving this us to continue displaying and working with poll data while
+//minimizing the number of calls to the api to save our credits.
 var savePollId = function () {
     localStorage.setItem("pollId", JSON.stringify(pollId));
-    console.log(pollId);
+    //console.log(pollId);
 };
 
+//This is just a dummy function that is used to populate the localStorage information with information for my test poll wihout spending 10 credits to call the api.
 var dummySave = function () {
     pollId.id = "Pyn0FYhq8H";
     pollId.title = "Test Poll";
     pollId.poll_status = "OPEN";
+    pollId.chartUrl = "http://chart.open-agora.com/0py1Xkv3g8";
     pollId.choices.push({
         id: "CUgXDxW5Gi",
         num: 1,
@@ -184,10 +173,11 @@ var dummySave = function () {
         num: 10,
         label: "tenth choice"
     });
-    console.log(pollId);
+    //console.log(pollId);
     savePollId();
 }
 
+//Loads the pollId info from localStorage. If there is no pollId info in localStorage, it initializes an empty pollId object.
 var loadPollId = function () {
     pollId = JSON.parse(localStorage.getItem("pollId"));
     if (!pollId) {
@@ -195,17 +185,75 @@ var loadPollId = function () {
             id: "",
             title: "",
             poll_status: "",
+            chartUrl: "",
             choices: []
         };
     }
-
-    console.log (pollId);
 }
 
+//makes an api call to get/update the chart with the current poll results, this call returns a url to the chart which is subsequently stored in the pollId
+//object so the chart can continue to be displayed wihout needing to make a call.
+//**NOTE - THIS CALL COSTS 10 CREDITS **
+var getChart = function () {
+    console.log("Inside getCharts");
+    fetch("https://api.open-agora.com/polls/"+pollId.id+"/results/majority/charts/hbar?api_token="+apiKey, {
+        headers: {
+            Accept: "application/json",
+            "Content-type": "application/json"
+        }
+    }).then(function(response) {
+        if(response.ok) {
+            response.json().then(function(data) {
+                console.log(data);
+                pollId.chartUrl = data.url;
+                console.log(pollId.chartUrl);
+                savePollId();
+                displayChart();
+            });
+        }
+    });
+}
+
+//function to add an img element to the chart-container div, displaying the current chart image from the pollId.chartUrl
+var displayChart = function () {
+    chartConEl.innerHTML = "";
+    //console.log("Inside displayChart");
+    if (pollId.chartUrl) {
+        //console.log("Trying to display: " + pollId.chartUrl);
+        var chartEl = document.createElement("img");
+        chartEl.src = pollId.chartUrl;
+        chartConEl.appendChild(chartEl);
+    }
+}
+
+//Calls the api and returns the current results/standings for the poll. Currently these are just logged to console.
+//**NOTE - THIS CALL COSTS 10 CREDITS **
+var getResults = function () {
+    console.log("Inside getResults");
+    fetch("https://api.open-agora.com/polls/"+pollId.id+"/results/majority?api_token="+apiKey, {
+        headers: {
+            Accept: "application/json",
+        }
+    }).then(function(response) {
+        if(response.ok) {
+            response.json().then(function(data) {
+                console.log(data);
+            });
+        }
+    });
+}
+
+//functions to call every time the program loads
 //dummySave();
+creditCheck();
 loadPollId();
+displayChart();
+//displayChart();
+
 
 //event listeners
 infoBtnEl.addEventListener("click", getPollInfo);
 btnConEl.addEventListener("click", vote);
 credBtnEl.addEventListener("click", creditCheck);
+getChartEl.addEventListener("click", getChart);
+getResEl.addEventListener("click", getResults);
