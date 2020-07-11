@@ -6,11 +6,13 @@ var infoBtnEl = document.querySelector("#poll-info");
 var credBtnEl = document.querySelector("#credit-info");
 var btnConEl = document.querySelector("#button-container");
 var getChartEl = document.querySelector("#get-chart");
+var showChartEl = document.querySelector("#show-chart");
 var getResEl = document.querySelector("#get-results");
 var chartConEl = document.querySelector("#chart-container");
 var creditsEl = document.querySelector("#credits");
 var updateEl = document.querySelector("#update-pollId");
 var closeEl = document.querySelector("#close-poll");
+var amountEl = document.querySelector("#amount");
 
 //The main poll object, consisting of the poll ID, poll title, poll status (OPEN/CLOSED), an array of choices, and the URL for the associated chart
 var pollId = {
@@ -69,6 +71,7 @@ var vote = function (event) {
     //console.log(userVote[0]);
     //console.log(userVote[1]);
     var buttonNum = parseInt(buttonId[1]);
+    var voteAmount = amountEl.value;
 
     //Loop through the array of choices in pollId and find the one with the num attribute that matches the button pressed.
     //Then it copies the ID for that choice into voteChoiceId which will be used to form the api call below.
@@ -89,9 +92,11 @@ var vote = function (event) {
     console.log("Choice ID: " + pollId.choices[buttonNum-1].id);
     console.log("VoteChoiceId: " + voteChoiceId);
     console.log("Choice Title: " + pollId.choices[buttonNum-1].label);
+    console.log("amount: " + amountEl.value);
+    console.log("voteAmount: " + voteAmount);
 
-    var bodyStr = '{"poll_id": "'+pollId.id+'" , "choice_id": "'+voteChoiceId+'" }';
-    console.log(bodyStr);
+    //var bodyStr = '{"poll_id": "'+pollId.id+'" , "choice_id": "'+voteChoiceId+'" }';
+    //console.log(bodyStr);
 
     
     fetch("https://api.open-agora.com/votes/?api_token="+apiKey, {
@@ -99,8 +104,8 @@ var vote = function (event) {
                     Accept: "application/json",
                     "Content-Type": "application/json"
                 },
-                body: '{"poll_id": "'+pollId.id+'" , "choice_id": "'+voteChoiceId+'" }',
-                //body: '{"poll_id": "Pyn0FYhq8H" , "choice_id": "CfEAzmNK0a" }',
+                body: '{"poll_id": "'+pollId.id+'", "choice_id": "'+voteChoiceId+'", "score": '+voteAmount+' }',
+                //body: '{"poll_id": "PUAlaUWQTW" , "choice_id": "CjQyGxXWYQ", "score": 20 }',
                 method: "POST"
     }).then(function(response) {
                 if(response.ok) {
@@ -109,6 +114,9 @@ var vote = function (event) {
                     });
                 }
     });
+    console.log("reloading");
+    getChart();
+    //location.reload();
     
 }
 
@@ -121,7 +129,7 @@ var savePollId = function () {
 };
 
 //This is just a dummy function that is used to populate the localStorage information with information for my test poll wihout spending 10 credits to call the api.
-var dummySave = function () {
+/*var dummySave = function () {
     pollId.id = "Pyn0FYhq8H";
     pollId.title = "Test Poll";
     pollId.poll_status = "OPEN";
@@ -178,7 +186,7 @@ var dummySave = function () {
     });
     //console.log(pollId);
     savePollId();
-}
+}*/
 
 //Loads the pollId info from localStorage. If there is no pollId info in localStorage, it initializes an empty pollId object.
 var loadPollId = function () {
@@ -199,7 +207,7 @@ var loadPollId = function () {
 //**NOTE - THIS CALL COSTS 10 CREDITS **
 var getChart = function () {
     console.log("Inside getCharts");
-    fetch("https://api.open-agora.com/polls/"+pollId.id+"/results/majority/charts/hbar?api_token="+apiKey, {
+    fetch("https://api.open-agora.com/polls/"+pollId.id+"/results/sum/charts/hbar?api_token="+apiKey, {
         headers: {
             Accept: "application/json",
             "Content-type": "application/json"
@@ -219,13 +227,15 @@ var getChart = function () {
 
 //function to add an img element to the chart-container div, displaying the current chart image from the pollId.chartUrl
 var displayChart = function () {
+    console.log("Deleting old chart...");
     chartConEl.innerHTML = "";
-    //console.log("Inside displayChart");
+    console.log("Inside displayChart");
     if (pollId.chartUrl) {
-        //console.log("Trying to display: " + pollId.chartUrl);
+        console.log("Trying to display: " + pollId.chartUrl);
         var chartEl = document.createElement("img");
         chartEl.src = pollId.chartUrl;
         chartConEl.appendChild(chartEl);
+        //location.reload();
     }
 }
 
@@ -233,7 +243,7 @@ var displayChart = function () {
 //**NOTE - THIS CALL COSTS 10 CREDITS **
 var getResults = function () {
     console.log("Inside getResults");
-    fetch("https://api.open-agora.com/polls/"+pollId.id+"/results/majority?api_token="+apiKey, {
+    fetch("https://api.open-agora.com/polls/"+pollId.id+"/results/sum?api_token="+apiKey, {
         headers: {
             Accept: "application/json",
         }
@@ -337,3 +347,4 @@ getChartEl.addEventListener("click", getChart);
 getResEl.addEventListener("click", getResults);
 updateEl.addEventListener("click", updatePollId);
 closeEl.addEventListener("click", closePoll);
+showChartEl.addEventListener("click", displayChart);
