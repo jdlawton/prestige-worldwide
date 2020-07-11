@@ -1,5 +1,5 @@
 //api key, remove before pushing to GH
-var apiKey = "fZYwg4ZBLCTz2foj9DsfTO0cppIhM0el";
+var apiKey = "HIDDEN";
 
 //Elements on my test page I will be accessing
 var infoBtnEl = document.querySelector("#poll-info");
