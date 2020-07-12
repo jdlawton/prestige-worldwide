@@ -20,16 +20,21 @@
 <body>
     <div>
         <h1>Bands</h1>
-        <input id="band">
-        <button class="button" value="clutch" id="clutch" type="submit">Clutch</button>
-        <button class="button" id="The-Black-Keys" type="submit">The Black Keys</button>
-       
-        <a class="response"><img id="image_url" ></a>
-        
-        <a></a>
+        <button onclick="clutchInfo()" class="button" value="clutch" type="submit">Clutch</button>
+        <button onclick="keysInfo()" class="button" value="the black keys" type="submit">The Black Keys</button>
+        <button onclick="woodInfo()" class="button" value="the wood brothers" type="submit">The Wood Brothers</button>
+        <button onclick="strutsInfo()" class="button" value="the struts" type="submit">The Struts</button>
+        <button onclick="bluesTravelerInfo()" class="button" value="blues traveler" type="submit">Blues Traveler</button>
+        <button onclick="rivalSonsInfo()" class="button" value="rival sons" type="submit">Rival Sons</button>
+        <button onclick="guyInfo()" class="button" value="that 1 guy" type="submit">That 1 Guy</button>
+        <button onclick="kellerInfo()" class="button" value="keller williams" type="submit">Keller Williams</button>
+        <button onclick="willInfo()" class="button" value="william elliott whitmore" type="submit">William Elliott Whitmore</button>
+        <button onclick="dirtyHoneyInfo()" class="button" value="dirty honey" type="submit">Dirty Honey</button>
     </div>
     <div>
       <h1 class="band-text"></h1>
+      <p id="info-link" href=""></p>
+      <img id="image">
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
