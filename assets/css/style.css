@@ -1,0 +1,29 @@
+:root {
+    --color-main: #0051A8;
+    --color-title: #F56A19;
+    --color-accent: #0C7CF5;
+}   
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*.navbar {
+    background-image: url(./images/51LAvxiuPxL._AC_.jpg);
+    background-size:cover;
+    background-position: center;
+}
+
+.hero {
+    background-image: url(./images/51LAvxiuPxL._AC_.jpg);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    background-attachment: fixed;
+
+}
