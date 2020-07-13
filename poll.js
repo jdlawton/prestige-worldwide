@@ -1,6 +1,9 @@
 //api key, remove before pushing to GH
 var apiKey = "HIDDEN";
 
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawBasic);
+
 //Elements on my test page I will be accessing
 var infoBtnEl = document.querySelector("#poll-info");
 var credBtnEl = document.querySelector("#credit-info");
@@ -13,6 +16,7 @@ var creditsEl = document.querySelector("#credits");
 var updateEl = document.querySelector("#update-pollId");
 var closeEl = document.querySelector("#close-poll");
 var amountEl = document.querySelector("#amount");
+var resetEl = document.querySelector("#delete-votes");
 
 //The main poll object, consisting of the poll ID, poll title, poll status (OPEN/CLOSED), an array of choices, and the URL for the associated chart
 var pollId = {
@@ -43,9 +47,6 @@ var creditCheck = function () {
 });
 }
 
-//request account infomration from api
-//testapi();
-
 //get information about the poll. This will return info like the poll ID, title, status, the poll choices and the choice IDs, numbers, and labels.
 //This function can be expanded on to save the returned data to the pollId object and save that to localStorage so future actions do not need to make api calls to get
 //this information.
@@ -64,12 +65,14 @@ var getPollInfo = function () {
 //**NOTE - THIS CALL COSTS 10 CREDITS **
 var vote = function (event) {
     //console.log(event.target);
-    var buttonId = event.target.textContent;
+    //var buttonId = event.target.textContent;
+    var buttonId = event.target.id;
+    //console.log(event.target.id);
     //console.log(userVote);
     //console.log("inside vote. voting for: " + userVote);
-    buttonId = buttonId.split(" ");
-    //console.log(userVote[0]);
-    //console.log(userVote[1]);
+    buttonId = buttonId.split("-");
+    //console.log(buttonId[0]);
+    //console.log(buttonId[1]);
     var buttonNum = parseInt(buttonId[1]);
     var voteAmount = amountEl.value;
 
@@ -85,6 +88,7 @@ var vote = function (event) {
         }
     }
 
+    
     console.log("Going into vote call...");
     console.log("We are voting in poll with ID: " + pollId.id);
     console.log("Poll title: " + pollId.title);
@@ -110,13 +114,21 @@ var vote = function (event) {
     }).then(function(response) {
                 if(response.ok) {
                     response.json().then(function(data) {
+                        console.log("Voting");
                         console.log(data);
+                        console.log("GettingResults");
+                        getResults();
                     });
                 }
     });
-    console.log("reloading");
-    getChart();
+
+    
+    //debugger;
+    
+    //console.log("reloading");
+    //getChart();
     //location.reload();
+    //drawBasic();
     
 }
 
@@ -128,65 +140,7 @@ var savePollId = function () {
     //console.log(pollId);
 };
 
-//This is just a dummy function that is used to populate the localStorage information with information for my test poll wihout spending 10 credits to call the api.
-/*var dummySave = function () {
-    pollId.id = "Pyn0FYhq8H";
-    pollId.title = "Test Poll";
-    pollId.poll_status = "OPEN";
-    pollId.chartUrl = "http://chart.open-agora.com/0py1Xkv3g8";
-    pollId.choices.push({
-        id: "CUgXDxW5Gi",
-        num: 1,
-        label: "first choice"
-    });
-    pollId.choices.push({
-        id: "C7IKC5odSV",
-        num: 2,
-        label: "second choice"
-    });
-    pollId.choices.push({
-        id: "CfEAzmNK0a",
-        num: 3,
-        label: "third choice"
-    });
-    pollId.choices.push({
-        id: "CdYP2Zor9Z",
-        num: 4,
-        label: "fourth choice"
-    });
-    pollId.choices.push({
-        id: "Crlg1eFZTf",
-        num: 5,
-        label: "fifth choice"
-    });
-    pollId.choices.push({
-        id: "Ci3l68EdmZ",
-        num: 6,
-        label: "sixth choice"
-    });
-    pollId.choices.push({
-        id: "CRAkZwCmRf",
-        num: 7,
-        label: "seventh choice"
-    });
-    pollId.choices.push({
-        id: "CNSmMD7TqM",
-        num: 8,
-        label: "eighth choice"
-    });
-    pollId.choices.push({
-        id: "C6CDgE9390",
-        num: 9,
-        label: "ninth choice"
-    });
-    pollId.choices.push({
-        id: "CZ8Jzjg4Fg",
-        num: 10,
-        label: "tenth choice"
-    });
-    //console.log(pollId);
-    savePollId();
-}*/
+
 
 //Loads the pollId info from localStorage. If there is no pollId info in localStorage, it initializes an empty pollId object.
 var loadPollId = function () {
@@ -227,11 +181,11 @@ var getChart = function () {
 
 //function to add an img element to the chart-container div, displaying the current chart image from the pollId.chartUrl
 var displayChart = function () {
-    console.log("Deleting old chart...");
+    //console.log("Deleting old chart...");
     chartConEl.innerHTML = "";
-    console.log("Inside displayChart");
+    //console.log("Inside displayChart");
     if (pollId.chartUrl) {
-        console.log("Trying to display: " + pollId.chartUrl);
+        //console.log("Trying to display: " + pollId.chartUrl);
         var chartEl = document.createElement("img");
         chartEl.src = pollId.chartUrl;
         chartConEl.appendChild(chartEl);
@@ -239,9 +193,11 @@ var displayChart = function () {
     }
 }
 
-//Calls the api and returns the current results/standings for the poll. Currently these are just logged to console.
+//Calls the api and returns the current results/standings for the poll. It logs the results to console and also
+//saves each band's score to the pollId.choices array so the score can be accessed locally.
 //**NOTE - THIS CALL COSTS 10 CREDITS **
 var getResults = function () {
+    //debugger
     console.log("Inside getResults");
     fetch("https://api.open-agora.com/polls/"+pollId.id+"/results/sum?api_token="+apiKey, {
         headers: {
@@ -251,10 +207,29 @@ var getResults = function () {
         if(response.ok) {
             response.json().then(function(data) {
                 console.log(data);
+                console.log("data.length: " + data.length);
+                //debugger;
+                for(var i=0; i<data.length; i++) {
+                    console.log("Score: "+data[i].score);
+                    //pollId.choices[i].score = data[i].score;
+                    for(var j=0; j<pollId.choices.length; j++) {
+                        if (pollId.choices[j].num === data[i].choice.num){
+                            //console.log("We found a match");
+                            //console.log("Adding " + data[i].choice.score + " to " + pollId.choices[j].label);
+                            pollId.choices[j].score = data[i].score;
+                            //drawBasic();
+                        }
+                    }
+                }
+                console.log("getResults SAVING");
+                savePollId();
+                drawBasic();
             });
         }
     });
 }
+
+
 
 //This function updates the pollId object with the current open poll. It first calls the api to find all of the polls associated with the apiKey, then
 //finds the poll with poll_status: OPEN. It then saves that poll's id and title, and poll_status and then calls the api to get a list of choices associated
@@ -296,7 +271,7 @@ var updatePollId = function () {
                                             id: choiceData[i].id,
                                             num: choiceData[i].num,
                                             label: choiceData[i].label,
-                                            color: choiceData[i].color
+                                            //color: choiceData[i].color
                                         });
                                     }
                                     savePollId();
@@ -310,6 +285,9 @@ var updatePollId = function () {
         }
     });
 }
+
+
+
 
 //This will close the currently open poll
 var closePoll = function () {
@@ -331,13 +309,74 @@ var closePoll = function () {
     });
 }
 
+//This function will delete all of the votes for the current poll
+var deleteVotes = function () {
+    fetch ("https://api.open-agora.com/votes/for-poll/"+pollId.id+"?api_token=" + apiKey, {
+        headers: {
+            Accept: "application/json"
+        },
+        method: "DELETE"
+    }).then(function(response) {
+        if(response.ok) {
+            //response.json().then(function(data) {
+                //console.log(data);
+                console.log("Poll Reset");
+                getResults();
+                drawBasic();
+            //});
+        }
+    });
+}
+
 //functions to call every time the program loads
 //dummySave();
 //creditCheck();
 loadPollId();
-displayChart();
+//displayChart();
 //displayChart();
 //console.log(pollId);
+
+//============================================================
+
+
+
+function drawBasic() {
+
+      var data = google.visualization.arrayToDataTable([
+        ['Band', 'Amount',],
+        [pollId.choices[0].label, pollId.choices[0].score],
+        [pollId.choices[1].label, pollId.choices[1].score],
+        [pollId.choices[2].label, pollId.choices[2].score],
+        [pollId.choices[3].label, pollId.choices[3].score],
+        [pollId.choices[4].label, pollId.choices[4].score],
+        [pollId.choices[5].label, pollId.choices[5].score],
+        [pollId.choices[6].label, pollId.choices[6].score],
+        [pollId.choices[7].label, pollId.choices[7].score],
+        [pollId.choices[8].label, pollId.choices[8].score],
+        [pollId.choices[9].label, pollId.choices[9].score]
+      ]);
+
+      var options = {
+        title: 'Band Vote',
+        chartArea: {width: '50%'},
+        height: 500,
+        hAxis: {
+          title: 'Amount Raised',
+          minValue: 0,
+          maxValue: 1000
+        },
+        /*vAxis: {
+          title: 'Bands'
+        }*/
+      };
+
+      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+
+      chart.draw(data, options);
+    }
+
+
+//==============================================================
 
 //event listeners
 infoBtnEl.addEventListener("click", getPollInfo);
@@ -348,3 +387,4 @@ getResEl.addEventListener("click", getResults);
 updateEl.addEventListener("click", updatePollId);
 closeEl.addEventListener("click", closePoll);
 showChartEl.addEventListener("click", displayChart);
+resetEl.addEventListener("click", deleteVotes);
