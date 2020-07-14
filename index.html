@@ -18,102 +18,109 @@
 
 
 <body>
-    <section class="hero has-background-dark">
+    <section class="hero">
         <div class="hero-body">
-            <h1 class="title has-text-info has-text-centered is-size-1 is-spaced is-uppercase has-text-weight-bold">Prestige Worldwide</h1>
-            <h2 class="subtitle has-text-grey-lighter has-text-centered is-size-3 has-text-weight-medium">Have your favorite bands play in your local town.</h2>
+            <h1 class="title has-text-centered is-spaced is-uppercase has-text-weight-bold">Prestige Worldwide</h1>
+            <h2 class="subtitle has-text-centered is-size-3 has-text-weight-medium">Have your favorite bands play in
+                your local town.</h2>
         </div>
     </section>
 
-    <div class="tile is-ancestor has-background-link">
+    <div class="tile is-ancestor">
         <div class="tile is-vertical is-8">
             <div class="tile">
                 <div class="tile is-parent is-vertical">
-                    <article class="tile is-child box has-background-dark">
-                        <p class="title has-text-white is-size-2">Who's Your Favorite?</p>
-                        <p class="subtitle has-text-grey">Click on the band below to get more info.</p>
-                        <ul>
-                            <li>
-                                <button onclick="clutchInfo()" class="button is-info is-outlined" value="clutch"
-                                    type="submit">Clutch</button>
+                    <article class="tile is-child box has-text-centered">
+                        <p class="title is-size-2">Who's Your Favorite?</p>
+                        <p class="subtitle">Click on the band below to get more info.</p>
+                        
+                            <ul>
+                                <li>
+                                    <button onclick="clutchInfo()" class="button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined" value="clutch"
+                                        type="submit">Clutch</button>
+                                </li>
+                                <br>
+                                <li>
+                                    <button onclick="keysInfo()" class="button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined" value="the black keys"
+                                        type="submit">The Black
+                                        Keys</button>
+                                </li>
+                                <br>
+                                <li>
+                                    <button onclick="woodInfo()" class="button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined"
+                                        value="the wood brothers" type="submit">The Wood
+                                        Brothers</button>
+                                </li>
+                                <br>
+                                <li>
+                                    <button onclick="strutsInfo()" class="button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined" value="the struts"
+                                        type="submit">The
+                                        Struts</button>
+                                </li>
+                                <br>
+                                <li>
+                                    <button onclick="bluesTravelerInfo()" class="button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined"
+                                        value="blues traveler" type="submit">Blues Traveler</button>
                             </li>
                             <br>
                             <li>
-                                <button onclick="keysInfo()" class="button is-info is-outlined" value="the black keys"
-                                    type="submit">The Black
-                                    Keys</button>
-                            </li>
-                            <br>
-                            <li>
-                                <button onclick="woodInfo()" class="button is-info is-outlined"
-                                    value="the wood brothers" type="submit">The Wood
-                                    Brothers</button>
-                            </li>
-                            <br>
-                            <li>
-                                <button onclick="strutsInfo()" class="button is-info is-outlined" value="the struts"
-                                    type="submit">The
-                                    Struts</button>
-                            </li>
-                            <br>
-                            <li>
-                                <button onclick="bluesTravelerInfo()" class="button is-info is-outlined"
-                                    value="blues traveler" type="submit">Blues Traveler</button>
-                            </li>
-                            <br>
-                            <li>
-                                <button onclick="rivalSonsInfo()" class="button is-info is-outlined" value="rival sons"
+                                <button onclick="rivalSonsInfo()" class="button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined" value="rival sons"
                                     type="submit">Rival
                                     Sons</button>
                             </li>
                             <br>
                             <li>
-                                <button onclick="guyInfo()" class="button is-info is-outlined" value="that 1 guy"
+                                <button onclick="guyInfo()" class="button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined" value="that 1 guy"
                                     type="submit">That 1
                                     Guy</button>
                             </li>
                             <br>
                             <li>
-                                <button onclick="kellerInfo()" class="button is-info is-outlined"
+                                <button onclick="kellerInfo()" class="button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined"
                                     value="keller williams" type="submit">Keller
                                     Williams</button>
                             </li>
                             <br>
                             <li>
-                                <button onclick="willInfo()" class="button is-info is-outlined"
+                                <button onclick="willInfo()" class="button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined"
                                     value="william elliott whitmore" type="submit">William Elliott Whitmore</button>
                             </li>
                             <br>
                             <li>
-                                <button onclick="dirtyHoneyInfo()" class="button is-info is-outlined"
+                                <button onclick="dirtyHoneyInfo()" class="button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined"
                                     value="dirty honey" type="submit">Dirty
                                     Honey</button>
                             </li>
-                        </ul>
+                            </ul>
+                        
                     </article>
                 </div>
                 <div>
                     <h1 class="band-text"></h1>
                     <p id="info-link" href=""></p>
-                    <img id="image is-rounded">
+                    <img id="image">
                 </div>
                 <div class="tile is-parent">
-                    <article class="tile is-child box has-background-dark">
+                    <article class="tile is-child box">
                         <figure class="image is-4by3">
                             <img src="./assets/css/images/51LAvxiuPxL._AC_.jpg">
+                        </figure>
+                        <figure class="image is-4by3">
+                            <img
+                                src="https://b.kisscc0.com/20180517/luw/kisscc0-music-festival-roskilde-festival-galway-internatio-design-5afd5711a52e84.5489255615265523376766.jpg">
                         </figure>
                     </article>
                 </div>
             </div>
             <div class="tile is-parent">
-                <article class="tile is-child box has-background-dark">
-                    <p class="title has-text-white is-size-2">Make it Happen</p>
-                    <div class="content has-text-grey is-size-5">
+                <article class="tile is-child box">
+                    <p class="title is-size-2">Make it Happen</p>
+                    <div class="content is-size-5">
                         <p>Find a band you want to see? Let's make it happen! All you have to do is make a donation,
-                            simple as that. Once your band has met its goal, your donation now becomes your tickets. For example, if you
-                            donate $40 that will in turn get you 4 tickets.</p>
+                            simple as that. Once your band has met its goal, your donation now becomes your tickets.
+                            For example, if you donate $40 that will in turn get you 4 tickets.</p>
                         <p>Now, the hard part...which band do you want to see most?</p>
-                        <p>Pick the band you want to play at Prestige Worldwide and enter your donation amount.</p>
+                        <p>Pick the band you want and let Prestige Worldwide make it happen! Enter your donation amount.</p>
                     </div>
                     <div class="block">
                         <div class="field has-addons">
@@ -138,7 +145,7 @@
                                 <input type="text" class="input" placeholder="Enter amount">
                             </p>
                             <p class="control">
-                                <a href="" class="button is-info is-outlined">Donate</a>
+                                <a href="" class="button">Donate</a>
                             </p>
                         </div>
                     </div>
@@ -146,17 +153,24 @@
             </div>
         </div>
         <div class="tile is-parent">
-            <article class="tile is-child box has-background-dark">
+            <article class="tile is-child box">
                 <div class="content">
-                    <p class="title has-text-white is-size-2 has-text-centered">Let Us Host</p>
-                    <div class="content has-text-grey is-size-4">
-                        <p>You just heard your favorite band is going on tour, the excitement starts! The first thing you do is to checkout and see where they are going to play. As quick and your excitment starts it is gone in a blink of an eye because they aren't touring anywhere near where you live.</p>
-                        <p>We have all experienced the highs and lows of wanting to see the bands you love time and time again. This is where we come in. We love music just as much as you so why not let us help make sure you never experience those lows again.</p>
+                    <p class="title is-size-2 has-text-centered">Let Us Host</p>
+                    <div class="content is-size-4">
+                        <p>You just heard your favorite band is going on tour, the excitement starts! The first
+                            thing you do is to checkout and see where they are going to play. As quick and your
+                            excitment starts it is gone in a blink of an eye because they aren't touring anywhere
+                            near where you live.</p>
+                        <p>We have all experienced the highs and lows of wanting to see the bands you love, but not
+                            being about to see them because of the venue location. You never know when a band's tour
+                            will be their last. This is where we come in. We love music just as much as you so let us
+                            help make sure you won't miss out again.</p>
                     </div>
                 </div>
             </article>
         </div>
     </div>
+
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
