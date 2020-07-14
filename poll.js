@@ -1,5 +1,5 @@
 //api key, remove before pushing to GH
-var apiKey = "HIDDEN";
+var apiKey = "fZYwg4ZBLCTz2foj9DsfTO0cppIhM0el";
 
 //these lines must be included in order to include the Google charting functionality
 google.charts.load('current', {packages: ['corechart', 'bar']});
@@ -18,6 +18,8 @@ var updateEl = document.querySelector("#update-pollId");
 var closeEl = document.querySelector("#close-poll");
 var amountEl = document.querySelector("#amount");
 var resetEl = document.querySelector("#delete-votes");
+var bandsEl = document.querySelector("#bands");
+var donateBtnEl = document.querySelector("#donate-button");
 
 //the main poll object, consisting of the poll ID, poll title, poll status (OPEN/CLOSED), an array of choices
 //the choices each contain an id, label, num(their position in the poll), and score(the amount attributed to that choice)
@@ -32,15 +34,20 @@ var pollId = {
 //to the corresponding band. It will then get the current scores for each band, store that info in pollId and then update the graph with the new info.
 //**NOTE - THIS CALL COSTS 20 CREDITS TOTAL (10 TO VOTE AND 10 TO UPDATE THE SCORES) **
 var vote = function (event) {
-    var buttonId = event.target.id;
-    buttonId = buttonId.split("-");
-    var buttonNum = parseInt(buttonId[1]);
+    //var buttonId = event.target.id;
+    //buttonId = buttonId.split("-");
+    //var buttonNum = parseInt(buttonId[1]);
     var voteAmount = amountEl.value;
+    var voteId = bandsEl.value;
+    console.log(voteId);
+    voteId = voteId.split("-");
+    var voteNum = parseInt(voteId[1]);
+    console.log(voteNum);
 
     //Loop through the array of choices in pollId and find the one with the num attribute that matches the button pressed.
     //Then it copies the ID for that choice into voteChoiceId which will be used to form the api call below.
     for (var i=0; i<pollId.choices.length; i++) {
-        if(buttonNum === pollId.choices[i].num) {
+        if(voteNum === pollId.choices[i].num) {
             var voteChoiceId = pollId.choices[i].id;
             console.log("VoteChoiceId: " + voteChoiceId);
         }
@@ -87,6 +94,7 @@ var vote = function (event) {
         console.log ("Error contacting server: " + error);
         messagesEl.textContent = "Error contacting server! " + error;
     });    
+    
 }
 
 //this function saves the current pollId object to localStorage. saving this allows us to continue displaying and working with poll data while
@@ -349,12 +357,13 @@ var deleteVotes = function () {
     });
 }
 
+
 //functions to call every time the program loads
 loadPollId();
 
 //event listeners
 infoBtnEl.addEventListener("click", getPollInfo);
-btnConEl.addEventListener("click", vote);
+//btnConEl.addEventListener("click", vote);
 credBtnEl.addEventListener("click", creditCheck);
 //getChartEl.addEventListener("click", getChart);
 getResEl.addEventListener("click", getResults);
@@ -362,3 +371,4 @@ updateEl.addEventListener("click", updatePollId);
 closeEl.addEventListener("click", closePoll);
 //showChartEl.addEventListener("click", displayChart);
 resetEl.addEventListener("click", deleteVotes);
+donateBtnEl.addEventListener("click", vote);
