@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Polling with Open Agora</title>
+</head>
+<body>
+    <h1 id="messages"></h1>
+
+    <button id="poll-info">Poll Info</button>
+    <button id="credit-info">Credit Info</button>
+    <button id="get-results">Get Results</button>
+    <!--<button id="get-chart">Update Chart</button>
+    <button id="show-chart">Show Chart</button>-->
+    <button id="update-pollId">Update Poll</button>
+    <button id="close-poll">Close Poll</button>
+    <button id="delete-votes">Reset Poll</button>
+    <br><br><br>
+
+    <div id="voting-container" style="background-color:lightblue">
+        <form id="voting-form">
+            <label for="amount">Amount:</label>
+            <input type="text" id="amount" name="amount">
+        </form>
+        <br>
+
+        <div id="button-container">
+            <!--<button id="vote-1">Clutch</button>
+            <button id="vote-2">Black Keys</button>
+            <button id="vote-3">Wood Bros</button>
+            <button id="vote-4">The Struts</button>
+            <button id="vote-5">Blues Traveler</button>
+            <button id="vote-6">Rival Sons</button>
+            <button id="vote-7">That 1 Guy</button>
+            <button id="vote-8">Keller Williams</button>
+            <button id="vote-9">William Elliott</button>
+            <button id="vote-10">Dirty Honey</button>-->
+            <button id="donate-button">Donate</button>
+        </div>
+
+        <div id="select-container">
+            <label for="bands">Choose a band:</label>
+
+            <select name="bands" id="bands">
+                <option value="vote-1">Clutch</option>
+                <option value="vote-2">The Black Keys</option>
+                <option value="vote-3">The Wood Brothers</option>
+                <option value="vote-4">The Struts</option>
+                <option value="vote-5">Blues Traveler</option>
+                <option value="vote-6">Rival Sons</option>
+                <option value="vote-7">That 1 Guy</option>
+                <option value="vote-8">Keller Williams</option>
+                <option value="vote-9">William Elliott</option>
+                <option value="vote-10">Dirty Honey</option>
+            </select>
+        </div>
+
+    </div>
+    
+    <!-- <div id="button-container">
+        <button id="vote-1">Vote 1</button>
+        <button id="vote-2">Vote 2</button>
+        <button id="vote-3">Vote 3</button>
+        <button id="vote-4">Vote 4</button>
+        <button id="vote-5">Vote 5</button>
+        <button id="vote-6">Vote 6</button>
+        <button id="vote-7">Vote 7</button>
+        <button id="vote-8">Vote 8</button>
+        <button id="vote-9">Vote 9</button>
+        <button id="vote-10">Vote 10</button>
+    </div> -->
+
+    <div id="chart-container"></div>
+
+    <div id="chart_div"></div>
+    
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="./poll.js"></script>
+</body>
+</html>
