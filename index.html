@@ -36,58 +36,58 @@
                         
                             <ul>
                                 <li>
-                                    <button onclick="clutchInfo()" class="button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined" value="clutch"
+                                    <button onclick="clutchInfo()" class="band-button button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined" value="clutch"
                                         type="submit">Clutch</button>
                                 </li>
                                 <br>
                                 <li>
-                                    <button onclick="keysInfo()" class="button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined" value="the black keys"
+                                    <button onclick="keysInfo()" class="band-button button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined" value="the black keys"
                                         type="submit">The Black
                                         Keys</button>
                                 </li>
                                 <br>
                                 <li>
-                                    <button onclick="woodInfo()" class="button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined"
+                                    <button onclick="woodInfo()" class="band-button button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined"
                                         value="the wood brothers" type="submit">The Wood
                                         Brothers</button>
                                 </li>
                                 <br>
                                 <li>
-                                    <button onclick="strutsInfo()" class="button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined" value="the struts"
+                                    <button onclick="strutsInfo()" class="band-button button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined" value="the struts"
                                         type="submit">The
                                         Struts</button>
                                 </li>
                                 <br>
                                 <li>
-                                    <button onclick="bluesTravelerInfo()" class="button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined"
+                                    <button onclick="bluesTravelerInfo()" class="band-button button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined"
                                         value="blues traveler" type="submit">Blues Traveler</button>
                             </li>
                             <br>
                             <li>
-                                <button onclick="rivalSonsInfo()" class="button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined" value="rival sons"
+                                <button onclick="rivalSonsInfo()" class="band-button button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined" value="rival sons"
                                     type="submit">Rival
                                     Sons</button>
                             </li>
                             <br>
                             <li>
-                                <button onclick="guyInfo()" class="button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined" value="that 1 guy"
+                                <button onclick="guyInfo()" class="band-button button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined" value="that 1 guy"
                                     type="submit">That 1
                                     Guy</button>
                             </li>
                             <br>
                             <li>
-                                <button onclick="kellerInfo()" class="button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined"
+                                <button onclick="kellerInfo()" class="band-button button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined"
                                     value="keller williams" type="submit">Keller
                                     Williams</button>
                             </li>
                             <br>
                             <li>
-                                <button onclick="willInfo()" class="button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined"
+                                <button onclick="willInfo()" class="band-button button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined"
                                     value="william elliott whitmore" type="submit">William Elliott Whitmore</button>
                             </li>
                             <br>
                             <li>
-                                <button onclick="dirtyHoneyInfo()" class="button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined"
+                                <button onclick="dirtyHoneyInfo()" class="band-button button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined"
                                     value="dirty honey" type="submit">Dirty
                                     Honey</button>
                             </li>
@@ -95,20 +95,19 @@
                         
                     </article>
                 </div>
-                <div>
+                <!--<div>
                     <h1 class="band-text"></h1>
                     <p id="info-link" href=""></p>
                     <img id="image">
-                </div>
+                </div>-->
                 <div class="tile is-parent px-2 py-2 has-background-white">
                     <article class="tile is-child box">
                         <figure class="image is-4by3">
-                            <img src="./assets/css/images/51LAvxiuPxL._AC_.jpg">
+                            <img id="image" src="./assets/css/images/51LAvxiuPxL._AC_.jpg">
                         </figure>
-                        <figure class="image is-4by3">
-                            <img
-                                src="https://b.kisscc0.com/20180517/luw/kisscc0-music-festival-roskilde-festival-galway-internatio-design-5afd5711a52e84.5489255615265523376766.jpg">
-                        </figure>
+                        <div id="chart_div">
+                            
+                        </div>
                     </article>
                 </div>
             </div>
@@ -126,26 +125,26 @@
                         <div class="field has-addons">
                             <p class="control">
                                 <span class="select">
-                                    <select>
+                                    <select  id="bands">
                                         <option></option>
-                                        <option>Clutch</option>
-                                        <option>The Black Keys</option>
-                                        <option>The Wood Brothers</option>
-                                        <option>The Struts</option>
-                                        <option>Blues Traveler</option>
-                                        <option>Rival Sons</option>
-                                        <option>The 1 Guy</option>
-                                        <option>Keller Williams</option>
-                                        <option>William Elliott Whitmore</option>
-                                        <option>Dirty Honey</option>
+                                        <option value="vote-1">Clutch</option>
+                                        <option value="vote-2">The Black Keys</option>
+                                        <option value="vote-3">The Wood Brothers</option>
+                                        <option value="vote-4">The Struts</option>
+                                        <option value="vote-5">Blues Traveler</option>
+                                        <option value="vote-6">Rival Sons</option>
+                                        <option value="vote-7">The 1 Guy</option>
+                                        <option value="vote-8">Keller Williams</option>
+                                        <option value="vote-9">William Elliott Whitmore</option>
+                                        <option value="vote-10">Dirty Honey</option>
                                     </select>
                                 </span>
                             </p>
                             <p class="control">
-                                <input type="text" class="input" placeholder="Enter amount">
+                                <input type="text" class="input" id="amount" placeholder="Enter amount">
                             </p>
                             <p class="control">
-                                <a href="" class="button has-background-grey-light has-text-black has-text-weight-medium is-inverted is-outlined">Donate</a>
+                                <button id="donate-button" class="button has-background-grey-light has-text-black has-text-weight-medium is-inverted is-outlined">Donate</button>
                             </p>
                         </div>
                     </div>
@@ -155,8 +154,8 @@
         <div class="tile is-parent px-2 pr-4 has-background-white">
             <article class="tile is-child box">
                 <div class="content">
-                    <p class="title is-size-2 has-text-centered">Let Us Host</p>
-                    <div class="content is-size-4">
+                    <p class="title is-size-2 has-text-centered band-text">Let Us Host</p>
+                    <div id="info-link" class="content is-size-4">
                         <p>You just heard your favorite band is going on tour, the excitement starts! The first
                             thing you do is to checkout and see where they are going to play. As quick and your
                             excitment starts it is gone in a blink of an eye because they aren't touring anywhere
@@ -174,6 +173,8 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="./assets/script.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="./assets/js/poll.js"></script>
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>

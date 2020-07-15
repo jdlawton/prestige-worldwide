@@ -6,18 +6,18 @@ google.charts.load('current', {packages: ['corechart', 'bar']});
 google.charts.setOnLoadCallback(drawBasic);
 
 //elements on my test page I will be accessing
-var infoBtnEl = document.querySelector("#poll-info");
-var credBtnEl = document.querySelector("#credit-info");
-var btnConEl = document.querySelector("#button-container");
+//var infoBtnEl = document.querySelector("#poll-info");
+//var credBtnEl = document.querySelector("#credit-info");
+//var btnConEl = document.querySelector("#button-container");
 //var getChartEl = document.querySelector("#get-chart");
 //var showChartEl = document.querySelector("#show-chart");
-var getResEl = document.querySelector("#get-results");
-var chartConEl = document.querySelector("#chart-container");
+//var getResEl = document.querySelector("#get-results");
+//var chartConEl = document.querySelector("#chart-container");
 var messagesEl = document.querySelector("#messages");
-var updateEl = document.querySelector("#update-pollId");
-var closeEl = document.querySelector("#close-poll");
+//var updateEl = document.querySelector("#update-pollId");
+//var closeEl = document.querySelector("#close-poll");
 var amountEl = document.querySelector("#amount");
-var resetEl = document.querySelector("#delete-votes");
+//var resetEl = document.querySelector("#delete-votes");
 var bandsEl = document.querySelector("#bands");
 var donateBtnEl = document.querySelector("#donate-button");
 
@@ -33,7 +33,7 @@ var pollId = {
 //the voting function, enter a value into the amount textarea on the page and click the band you want to contribute for. this function will then assign that amount
 //to the corresponding band. It will then get the current scores for each band, store that info in pollId and then update the graph with the new info.
 //**NOTE - THIS CALL COSTS 20 CREDITS TOTAL (10 TO VOTE AND 10 TO UPDATE THE SCORES) **
-var vote = function (event) {
+var vote = function () {
     //var buttonId = event.target.id;
     //buttonId = buttonId.split("-");
     //var buttonNum = parseInt(buttonId[1]);
@@ -178,9 +178,9 @@ function drawBasic() {
       ]);
 
       var options = {
-        title: 'Band Vote',
+        title: 'Donations',
         chartArea: {width: '50%'},
-        height: 500,
+        height: 600,
         hAxis: {
           title: 'Amount Raised',
           minValue: 0,
@@ -362,13 +362,13 @@ var deleteVotes = function () {
 loadPollId();
 
 //event listeners
-infoBtnEl.addEventListener("click", getPollInfo);
+//infoBtnEl.addEventListener("click", getPollInfo);
 //btnConEl.addEventListener("click", vote);
-credBtnEl.addEventListener("click", creditCheck);
+//credBtnEl.addEventListener("click", creditCheck);
 //getChartEl.addEventListener("click", getChart);
-getResEl.addEventListener("click", getResults);
-updateEl.addEventListener("click", updatePollId);
-closeEl.addEventListener("click", closePoll);
+//getResEl.addEventListener("click", getResults);
+//updateEl.addEventListener("click", updatePollId);
+//closeEl.addEventListener("click", closePoll);
 //showChartEl.addEventListener("click", displayChart);
-resetEl.addEventListener("click", deleteVotes);
+//resetEl.addEventListener("click", deleteVotes);
 donateBtnEl.addEventListener("click", vote);

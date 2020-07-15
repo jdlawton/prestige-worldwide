@@ -70,11 +70,11 @@ var dirtyHoneyInfo = function() {
     document.getElementById("info-link").innerHTML = "Dirty Honey is an American rock band from Los Angeles, formed in 2017. It consists of singer Marc Labelle, guitarist John Notto, bassist Justin Smolian, and drummer Corey Coverstone. Their self-titled extended play was self-released in March 2019. The single 'When I'm Gone' topped the Billboard Mainstream Rock Songs chart, making them the first unsigned band to ever top the chart. Dirty Honey is an iHeartRadio On The Verge Artist.";
    }
 
-var searchBtn = document.querySelectorAll(".button")
+var searchBtn = document.querySelectorAll(".band-button")
 searchBtn.forEach((btn) => {
     btn.addEventListener("click", (event) => {
         var bandName = event.target.value
         bandSearch(bandName)
-      ///console.log(event.target.value);
+      console.log(event.target.value);
     });
   });
