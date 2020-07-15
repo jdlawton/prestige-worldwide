@@ -114,6 +114,7 @@ var loadPollId = function () {
             poll_status: "",
             choices: []
         };
+        updatePollId();
     }
 }
 
@@ -162,7 +163,7 @@ var getResults = function () {
 
 //this function was provided by the Google library to create the bar graph on the page.
 function drawBasic() {
-
+    if(pollId.id){
       var data = google.visualization.arrayToDataTable([
         ['Band', 'Amount',],
         [pollId.choices[0].label, pollId.choices[0].score],
@@ -195,6 +196,7 @@ function drawBasic() {
 
       chart.draw(data, options);
     }
+}
 
 //********************************************************************************************************
 //THE FOLLOWING FUNCTIONS WERE CREATED PRIMARILY FOR TESTING PURPOSES AND TO MAKE INTERACTING
@@ -293,6 +295,8 @@ var updatePollId = function () {
                         pollId.title = data[i].title;
                         pollId.poll_status = data[i].poll_status;
                         pollId.choices = [];
+                        //call the api and find all of the choices associated with the OPEN poll, then assign their
+                        //data to the pollId.choices[] array.
                         fetch ("https://api.open-agora.com/choices/?api_token="+apiKey+"&poll_id="+pollId.id, {
                             headers: {
                                 Accept: "application/json"
@@ -313,6 +317,7 @@ var updatePollId = function () {
                                 });
                             }
                         });
+                        getResults();
                     }
                 }
             });
