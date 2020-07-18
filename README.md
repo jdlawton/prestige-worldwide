@@ -13,8 +13,8 @@ Google Charts - When the poll data is updated, such as when a donation is made, 
 https://github.com/jdlawton/prestige-worldwide - repo
 https://jdlawton.github.io/prestige-worldwide/  - Live
 
-![Project Screenshot1](/2020-07-17(1).png?raw=true)
-![Project Screenshot1](/2020-07-17(2).png?raw=true)
+![Project Screenshot1](/screenshot1.png?raw=true)
+![Project Screenshot2](/screenshot2.png?raw=true)
 
 
 
