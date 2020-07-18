@@ -1,11 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <!--Johnathan's stylesheets-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
+    <title>Prestige Worldwide</title>
 </head>
+
+
 <body>
-    
+    <section class="hero is-family-monospace pb-5">
+        <div class="hero-body">
+            <h1 class="title has-text-centered is-spaced is-uppercase has-text-weight-bold">Prestige Worldwide</h1>
+            <h2 class="subtitle has-text-centered is-size-3 has-text-weight-medium">Have your favorite bands play in
+                your local town.</h2>
+        </div>
+    </section>
+
+    <div class="tile is-ancestor is-family-monospace">
+        <div class="tile is-vertical is-8">
+            <div class="tile">
+                <div class="tile is-parent is-vertical pl-4 py-2 has-background-white">
+                    <article class="tile is-child box">
+                        <p class="title is-size-2">Who's Your Favorite?</p>
+                        <p class="subtitle">Click on the band below to get more info.</p>
+                        
+                            <ul>
+                                <li>
+                                    <button onclick="clutchInfo()" class="band-button button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined" value="clutch"
+                                        type="submit">Clutch</button>
+                                </li>
+                                <br>
+                                <li>
+                                    <button onclick="keysInfo()" class="band-button button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined" value="the black keys"
+                                        type="submit">The Black
+                                        Keys</button>
+                                </li>
+                                <br>
+                                <li>
+                                    <button onclick="woodInfo()" class="band-button button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined"
+                                        value="the wood brothers" type="submit">The Wood
+                                        Brothers</button>
+                                </li>
+                                <br>
+                                <li>
+                                    <button onclick="strutsInfo()" class="band-button button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined" value="the struts"
+                                        type="submit">The
+                                        Struts</button>
+                                </li>
+                                <br>
+                                <li>
+                                    <button onclick="bluesTravelerInfo()" class="band-button button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined"
+                                        value="blues traveler" type="submit">Blues Traveler</button>
+                            </li>
+                            <br>
+                            <li>
+                                <button onclick="rivalSonsInfo()" class="band-button button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined" value="rival sons"
+                                    type="submit">Rival
+                                    Sons</button>
+                            </li>
+                            <br>
+                            <li>
+                                <button onclick="guyInfo()" class="band-button button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined" value="that 1 guy"
+                                    type="submit">That 1
+                                    Guy</button>
+                            </li>
+                            <br>
+                            <li>
+                                <button onclick="kellerInfo()" class="band-button button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined"
+                                    value="keller williams" type="submit">Keller
+                                    Williams</button>
+                            </li>
+                            <br>
+                            <li>
+                                <button onclick="willInfo()" class="band-button button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined"
+                                    value="william elliott whitmore" type="submit">William Elliott Whitmore</button>
+                            </li>
+                            <br>
+                            <li>
+                                <button onclick="dirtyHoneyInfo()" class="band-button button has-background-grey-light has-text-black has-text-weight-medium is-medium is-inverted is-outlined"
+                                    value="dirty honey" type="submit">Dirty
+                                    Honey</button>
+                            </li>
+                            </ul>
+                        
+                    </article>
+                </div>
+               
+                <div class="tile is-parent px-2 py-2 has-background-white">
+                    <article class="tile is-child box">
+                        <figure class="image is-4by3">
+                            <img id="image" src="./assets/css/images/51LAvxiuPxL._AC_.jpg">
+                        </figure>
+                        <div class="band-text is-size-4 title">Let us Host!</div>
+                        <div id="info-link" class="content">
+                            <p>You just heard your favorite band is going on tour, the excitement starts! The first
+                                thing you do is to checkout and see where they are going to play. As quick and your
+                                excitment starts it is gone in a blink of an eye because they aren't touring anywhere
+                                near where you live.</p>
+                            <p>We have all experienced the highs and lows of wanting to see the bands you love, but not
+                                being about to see them because of the venue location. You never know when a band's tour
+                                will be their last. This is where we come in. We love music just as much as you so let us
+                                help make sure you won't miss out again.</p> 
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <div class="tile is-parent pl-4 py-2 has-background-white">
+                <article class="tile is-child box">
+                    <p class="title is-size-2">Make it Happen</p>
+                    <div class="content is-size-5">
+                        <p>Find a band you want to see? Let's make it happen! All you have to do is make a donation,
+                            simple as that. Once your band has met its goal, your donation now becomes your tickets.
+                            For example, if you donate $40 that will in turn get you 4 tickets. If your band does not meet 
+                            the goal then your card will not be charged.
+                        </p>
+                        <p>Now, the hard part...which band do you want to see most?</p>
+                        <p>Pick the band you would like to see and leave the rest to Prestige Worldwide! Enter your donation amount.</p>
+                    </div>
+                    <div class="block">
+                        <div class="field has-addons">
+                            <p class="control">
+                                <span class="select">
+                                    <select  id="bands">
+                                        <option></option>
+                                        <option value="vote-1">Clutch</option>
+                                        <option value="vote-2">The Black Keys</option>
+                                        <option value="vote-3">The Wood Brothers</option>
+                                        <option value="vote-4">The Struts</option>
+                                        <option value="vote-5">Blues Traveler</option>
+                                        <option value="vote-6">Rival Sons</option>
+                                        <option value="vote-7">The 1 Guy</option>
+                                        <option value="vote-8">Keller Williams</option>
+                                        <option value="vote-9">William Elliott Whitmore</option>
+                                        <option value="vote-10">Dirty Honey</option>
+                                    </select>
+                                </span>
+                            </p>
+                            <p class="control">
+                                <input type="text" class="input" id="amount" placeholder="Enter amount">
+                            </p>
+                            <p class="control">
+                                <button id="donate-button" class="button has-background-grey-light has-text-black has-text-weight-medium is-inverted is-outlined">Donate</button>
+                            </p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <div class="tile is-parent px-2 pr-4 has-background-white">
+            <article class="tile is-child box">
+                <div class="content">
+                    <p class="title is-size-2 has-text-centered"></p>
+                    <div id="chart_div" class="content is-size-4">
+                        
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="./assets/js/poll.js"></script>
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>
