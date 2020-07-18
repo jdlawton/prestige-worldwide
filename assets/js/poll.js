@@ -315,9 +315,9 @@ var updatePollId = function () {
                                     }
                                     savePollId();
                                 });
+                                getResults();
                             }
                         });
-                        getResults();
                     }
                 }
             });
