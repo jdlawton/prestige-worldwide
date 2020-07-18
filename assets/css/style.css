@@ -40,9 +40,9 @@
     color: var(--accent);
 }
 
-/* @media screen and (max-width: 980px) {
+@media screen and (max-width: 980px) {
 
     .hero-body h1 {
         font-size: 48px;
     }
-} */
+}
