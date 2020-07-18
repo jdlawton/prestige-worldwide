@@ -39,17 +39,17 @@ var vote = function () {
     //var buttonNum = parseInt(buttonId[1]);
     var voteAmount = amountEl.value;
     var voteId = bandsEl.value;
-    //console.log(voteId);
+    console.log(voteId);
     voteId = voteId.split("-");
     var voteNum = parseInt(voteId[1]);
-    //console.log(voteNum);
+    console.log(voteNum);
 
     //Loop through the array of choices in pollId and find the one with the num attribute that matches the button pressed.
     //Then it copies the ID for that choice into voteChoiceId which will be used to form the api call below.
     for (var i=0; i<pollId.choices.length; i++) {
         if(voteNum === pollId.choices[i].num) {
             var voteChoiceId = pollId.choices[i].id;
-            //console.log("VoteChoiceId: " + voteChoiceId);
+            console.log("VoteChoiceId: " + voteChoiceId);
         }
     }
 
@@ -123,7 +123,7 @@ var loadPollId = function () {
 //to redraw the chart with the updated data
 //**NOTE - THIS CALL COSTS 10 CREDITS **
 var getResults = function () {
-    //console.log("Inside getResults");
+    console.log("Inside getResults");
     fetch("https://api.open-agora.com/polls/"+pollId.id+"/results/sum?api_token="+apiKey, {
         headers: {
             Accept: "application/json",
@@ -158,59 +158,6 @@ var getResults = function () {
         //error logging for if the fetch cannot contact the server
         console.log ("Error contacting server: " + error);
         messagesEl.textContent = "Error contacting server! " + error;
-    });
-}
-
-//this function updates the pollId object with the current open poll, it will be used primarily to populate pollId whenever the site is loaded and localStorage
-//is empty. it first calls the api to find all of the polls associated with the apiKey, then
-//finds the poll with poll_status: OPEN. it then saves that poll's id and title, and poll_status and then calls the api to get a list of choices associated
-//with the open poll. it then iterates through the returned poll choices and pushes each choice to the pollId.choices[] array. 
-//finally, it saves the new pollId object to localStorage so we can work off of that data
-//locally until the poll changes/closes.
-var updatePollId = function () {
-    //console.log("Inside updatePollId");
-    //get a list of all polls associated with this apiKey
-    fetch ("https://api.open-agora.com/polls/?api_token="+apiKey, {
-        headers: {
-            Accept: "application/json"
-        }
-    }).then(function(response) {
-        if(response.ok) {
-            response.json().then(function(data) {
-                //console.log(data);
-                for(var i=0; i<data.length; i++) {
-                    if(data[i].poll_status === "OPEN"){
-                        pollId.id = data[i].id;
-                        pollId.title = data[i].title;
-                        pollId.poll_status = data[i].poll_status;
-                        pollId.choices = [];
-                        //call the api and find all of the choices associated with the OPEN poll, then assign their
-                        //data to the pollId.choices[] array.
-                        fetch ("https://api.open-agora.com/choices/?api_token="+apiKey+"&poll_id="+pollId.id, {
-                            headers: {
-                                Accept: "application/json"
-                            }
-                        }).then(function(choiceRes) {
-                            if(choiceRes.ok) {
-                                choiceRes.json().then(function(choiceData) {
-                                    //console.log("ChoiceData: ")
-                                    //console.log(choiceData);
-                                    for(var i=0; i<choiceData.length; i++) {
-                                        pollId.choices.push({
-                                            id: choiceData[i].id,
-                                            num: choiceData[i].num,
-                                            label: choiceData[i].label,
-                                        });
-                                    }
-                                    savePollId();
-                                });
-                            }
-                        });
-                        getResults();
-                    }
-                }
-            });
-        }
     });
 }
 
@@ -269,7 +216,7 @@ var creditCheck = function () {
 }).then(function(response) {
     if(response.ok) {
         response.json().then(function(data) {
-            console.log(data.subscription.credits + " Credits Left");
+            messagesEl.textContent = data.subscription.credits + " Credits Left";
         });
     }
 });
@@ -281,7 +228,7 @@ var getPollInfo = function () {
     fetch("https://api.open-agora.com/polls/"+pollId.id+"?api_token=" + apiKey).then(function(response) {
         if(response.ok) {
             response.json().then(function(data) {
-                //console.log(data);
+                console.log(data);
             });
         }
     });
@@ -326,6 +273,58 @@ var displayChart = function () {
 }
 */
 
+//this function updates the pollId object with the current open poll. it first calls the api to find all of the polls associated with the apiKey, then
+//finds the poll with poll_status: OPEN. it then saves that poll's id and title, and poll_status and then calls the api to get a list of choices associated
+//with the open poll. it then iterates through the returned poll choices and pushes each choice to the pollId.choices[] array. 
+//finally, it saves the new pollId object to localStorage so we can work off of that data
+//locally until the poll changes/closes.
+var updatePollId = function () {
+    console.log("Inside updatePollId");
+    //get a list of all polls associated with this apiKey
+    fetch ("https://api.open-agora.com/polls/?api_token="+apiKey, {
+        headers: {
+            Accept: "application/json"
+        }
+    }).then(function(response) {
+        if(response.ok) {
+            response.json().then(function(data) {
+                //console.log(data);
+                for(var i=0; i<data.length; i++) {
+                    if(data[i].poll_status === "OPEN"){
+                        pollId.id = data[i].id;
+                        pollId.title = data[i].title;
+                        pollId.poll_status = data[i].poll_status;
+                        pollId.choices = [];
+                        //call the api and find all of the choices associated with the OPEN poll, then assign their
+                        //data to the pollId.choices[] array.
+                        fetch ("https://api.open-agora.com/choices/?api_token="+apiKey+"&poll_id="+pollId.id, {
+                            headers: {
+                                Accept: "application/json"
+                            }
+                        }).then(function(choiceRes) {
+                            if(choiceRes.ok) {
+                                choiceRes.json().then(function(choiceData) {
+                                    console.log("ChoiceData: ")
+                                    console.log(choiceData);
+                                    for(var i=0; i<choiceData.length; i++) {
+                                        pollId.choices.push({
+                                            id: choiceData[i].id,
+                                            num: choiceData[i].num,
+                                            label: choiceData[i].label,
+                                        });
+                                    }
+                                    savePollId();
+                                });
+                            }
+                        });
+                        getResults();
+                    }
+                }
+            });
+        }
+    });
+}
+
 //This will close the currently open poll. it assumes there is only one poll with OPEN status at a time
 var closePoll = function () {
     fetch ("https://api.open-agora.com/polls/"+pollId.id+"?api_token="+apiKey, {
@@ -338,9 +337,9 @@ var closePoll = function () {
     }).then(function(response) {
         if(response.ok) {
             response.json().then(function(data) {
-                //console.log(data);
+                console.log(data);
                 pollId = "";
-                //console.log(pollId);
+                console.log(pollId);
             });
         }
     });
@@ -356,12 +355,13 @@ var deleteVotes = function () {
     }).then(function(response) {
         if(response.ok) {
                 //if response.ok then the delete was successful, then update the results and the chart showing the now empty poll/chart
-                //console.log("Poll Reset");
+                console.log("Poll Reset");
                 getResults();
                 drawBasic();
         }
     });
 }
+
 
 //functions to call every time the program loads
 loadPollId();
